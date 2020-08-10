@@ -1,9 +1,10 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-
-mongoose.connect('mongodb://localhost/agenda-juridica', {
+mongoose
+  .connect("mongodb://localhost/agenda-juridica", {
     useUnifiedTopology: true,
-    useNewUrlParser: true
-})
-    .then( db => console.log('DB is connected'))
-    .catch(err => console.error(err.message))
+    useNewUrlParser: true,
+    useCreateIndex: true,
+  })
+  .then((db) => console.log("DB is connected"))
+  .catch((err) => console.error(err.message));
