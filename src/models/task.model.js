@@ -1,11 +1,11 @@
 const { Schema, model } = require("mongoose");
 
 const Task = new Schema({
-  user_id: {
+  user_initials: {
     type: String,
     required: true,
   },
-  case_id: {
+  case_title: {
     type: String,
     required: true,
   },
@@ -14,12 +14,11 @@ const Task = new Schema({
     default: Date.now,
   },
   date_completed: {
-    type: Date,
-    default: Date.now,
+    type: String,
   },
   date_deadline: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    require: true,
   },
   title: {
     type: String,

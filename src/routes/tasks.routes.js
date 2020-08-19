@@ -8,6 +8,7 @@ const {
   addTask,
   deleteTask,
   updateTask,
+  toggleCompletedTask,
 } = require("../controllers/task.controller");
 
 const router = Router();
@@ -20,10 +21,12 @@ router.get("/tasks-by-user", taskByUser);
 
 router.get("/task/:id", getTask);
 
-router.post("/task/:id", addTask);
+router.post("/task", addTask); //protected
 
-router.delete("/task/:id", deleteTask);
+router.post("/toggleCompletedTask", toggleCompletedTask);
 
-router.put("/task/:id", updateTask);
+router.delete("/task/:id", deleteTask); //protected
+
+router.put("/task/:id", updateTask); //protected
 
 module.exports = router;

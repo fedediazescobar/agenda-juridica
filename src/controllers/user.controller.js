@@ -67,7 +67,21 @@ const login = async (req, res) => {
       expiresIn: "12h",
     }
   );
-  res.json({ message: "Login Correcto", token });
+  res.json({ message: "Login Correcto", token, user });
+};
+
+const verifyToken = async (req, res) => {
+  const { token } = req.body;
+  const decoded = jwt.verify(token, "jwtSecret");
+  res.json(decoded);
+};
+const getUserData = async (req, res) => {
+  const user = await USERS.findById(req.user.id);
+  res.json({
+    name: user.name,
+    email: user.email,
+    initials: user.initials,
+  });
 };
 
 module.exports = {
@@ -77,4 +91,6 @@ module.exports = {
   deleteUser,
   updateUser,
   login,
+  verifyToken,
+  getUserData,
 };

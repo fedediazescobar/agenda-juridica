@@ -2,9 +2,9 @@ const TASKS = require("../models/task.model");
 
 const taskByDate = async (req, res) => {
   const tasks = await TASKS.find({
-    date_deadline: new Date().toISOString(),
-  }).sort({ initials: 1 });
-  res.json({ message: "estas en las tareas por dia" });
+    date_deadline: new Date("2020-08-16"),
+  });
+  res.json(tasks);
 };
 
 const taskByCase = async (req, res) => {
@@ -25,20 +25,34 @@ const getTask = async (req, res) => {
 };
 
 const addTask = async (req, res) => {
-  const { user_id, case_id, date_deadline, title, content } = req.body;
-  const newTask = new Task({ user_id, case_id, date_deadline, title, content });
+  const { user_initials, case_title, date_deadline, title, content } = req.body;
+  const newTask = new TASKS({
+    user_initials,
+    case_title,
+    date_deadline,
+    title,
+    content,
+  });
   await newTask.save();
-  res.json("Tarea guardada");
+  res.json({ message: "Tarea guardada" });
 };
 const deleteTask = async (req, res) => {
   await TASKS.findByIdAndRemove(req.params.id);
-  res.json("Tarea Eliminada");
+  res.json({ message: "Tarea Eliminada" });
 };
 const updateTask = async (req, res) => {
   const { user_id, case_id, date_deadline, title, content } = req.body;
   const updateTask = { user_id, case_id, date_deadline, title, content };
   await TASKS.findByIdAndUpdate(req.params.id, updateTask);
   res.json("Tarea actualizada");
+};
+
+const toggleCompletedTask = async (req, res) => {
+  const { id, completed, date_completed } = req.body;
+  await TASKS.findByIdAndUpdate(id, {
+    $set: { completed: !completed, date_completed },
+  });
+  res.json({ message: "Tarea hecha" });
 };
 
 module.exports = {
@@ -49,4 +63,5 @@ module.exports = {
   deleteTask,
   addTask,
   updateTask,
+  toggleCompletedTask,
 };
