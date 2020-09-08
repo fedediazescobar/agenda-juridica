@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose");
 const Task = new Schema({
   user_initials: {
     type: String,
+    uppercase: true,
     required: true,
   },
   case_title: {

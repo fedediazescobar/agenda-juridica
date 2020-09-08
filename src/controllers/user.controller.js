@@ -32,7 +32,7 @@ const addUser = async (req, res) => {
       expiresIn: "12h",
     }
   );
-  res.json({ message: "usuario guardado", token });
+  res.status(201).json({ message: "Usuario guardado", token });
 };
 
 const deleteUser = async (req, res) => {
@@ -81,6 +81,7 @@ const getUserData = async (req, res) => {
     name: user.name,
     email: user.email,
     initials: user.initials,
+    admin: user.admin,
   });
 };
 

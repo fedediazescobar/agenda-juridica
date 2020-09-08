@@ -1,9 +1,10 @@
 const TASKS = require("../models/task.model");
 
 const taskByDate = async (req, res) => {
+  const { date } = req.params;
   const tasks = await TASKS.find({
-    date_deadline: new Date("2020-08-16"),
-  });
+    date_deadline: date,
+  }).sort({ user_initials: 0 });
   res.json(tasks);
 };
 

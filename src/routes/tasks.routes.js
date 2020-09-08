@@ -13,7 +13,7 @@ const {
 
 const router = Router();
 
-router.get("/tasks-by-date", taskByDate);
+router.get("/tasks-by-date/:date", taskByDate);
 
 router.get("/tasks-by-case", taskByCase);
 
